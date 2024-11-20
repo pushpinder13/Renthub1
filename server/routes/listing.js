@@ -96,28 +96,34 @@ router.get("/", async (req, res) => {
     console.log(err)
   }
 })
-
 router.get("/search/:search", async (req, res) => {
-  const { search } = req.params
+  const { search } = req.params;
 
   try {
-    let listings = []
+    let listings = [];
 
     if (search === "all") {
-      listings = await Listing.find().populate("creator")
+      listings = await Listing.find().populate("creator");
     } else {
+
       listings = await Listing.find({
         $or: [
-          { category: { $regex: search, $options: "i" } },
-          { title: { $regex: search, $options: "i" } },
+          { category: { $regex: search, $options: "i" } },  
+          { title: { $regex: search, $options: "i" } },     
+          { title: search },                              
+          { streetAddress: { $regex: search, $options: "i" } }, 
+          { city: { $regex: search, $options: "i" } },        
+          { province: { $regex: search, $options: "i" } },    
+          { country: { $regex: search, $options: "i" } },     
         ]
-      }).populate("creator")
+      }).populate("creator");
+
     }
 
-    res.status(200).json(listings)
+    res.status(200).json(listings);
   } catch (err) {
-    res.status(404).json({ message: "Fail to fetch listings", error: err.message })
-    console.log(err)
+    res.status(404).json({ message: "Fail to fetch listings", error: err.message });
+    console.log(err);
   }
 })
 
