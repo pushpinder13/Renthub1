@@ -5,49 +5,48 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState(""); // Managing email input
-  const [password, setPassword] = useState(""); // Managing password input
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
 
-  const dispatch = useDispatch(); // Redux dispatch function
-  const navigate = useNavigate(); // Navigation hook from react-router-dom
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
 
     try {
       // Make an API call to login the user
       const response = await fetch("http://localhost:3001/auth/login", {
-        method: "POST", // POST request to login
+        method: "POST",
         headers: {
-          "Content-Type": "application/json", // Set content type as JSON
+          "Content-Type": "application/json", 
         },
-        body: JSON.stringify({ email, password }) // Send email and password in body
+        body: JSON.stringify({ email, password }) 
       });
 
-      const loggedIn = await response.json(); // Get response as JSON
+      const loggedIn = await response.json(); 
 
-      if (response.ok) { // If login is successful
-        alert("Login successful!");  // Show success alert
-        dispatch( // Dispatch login action to Redux
+      if (response.ok) { 
+        alert("Login successful!");  
+        dispatch( 
           setLogin({
             user: loggedIn.user,
             token: loggedIn.token,
           })
         );
-        navigate("/");  // Navigate to home page after login
+        navigate("/");
       } else {
-        // Show error alert if login fails and clear the form
         alert(loggedIn.message || "Login failed. Invalid credentials.");
-        setEmail("");  // Clear the email input
-        setPassword("");  // Clear the password input
+        setEmail("");  
+        setPassword("");  
       }
     } catch (err) {
       // Handle error (network issue or other)
       console.log("Login Failed", err.message);
-      alert("An error occurred: " + err.message);  // Show error alert for any other issues
-      setEmail("");  // Clear the email input
-      setPassword("");  // Clear the password input
+      alert("An error occurred: " + err.message);  
+      setEmail("");  
+      setPassword(""); 
     }
   };
 
@@ -59,14 +58,14 @@ const LoginPage = () => {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // Update email state on input change
+            onChange={(e) => setEmail(e.target.value)} 
             required
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Update password state on input change
+            onChange={(e) => setPassword(e.target.value)} 
             required
           />
           <button type="submit">LOG IN</button>

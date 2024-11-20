@@ -3,21 +3,20 @@ import "../styles/Register.scss";
 import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
-  // State variables for form inputs
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // added for confirm password
+  const [confirmPassword, setConfirmPassword] = useState(""); 
   const [profileImage, setProfileImage] = useState(null);
 
-  const navigate = useNavigate(); // React Router navigation
+  const navigate = useNavigate(); 
 
   // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if passwords match
+   
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -43,7 +42,7 @@ const RegisterPage = () => {
 
       if (response.ok) {
         alert("Registration successful!");
-        navigate("/login"); // Redirect on success
+        navigate("/login"); 
       } else {
         alert(data.message || "Registration failed. Please try again.");
       }
@@ -89,8 +88,8 @@ const RegisterPage = () => {
             placeholder='Confirm Password'
             name='confirmPassword'
             type='password'
-            value={confirmPassword}  // Linked confirm password state
-            onChange={(e) => setConfirmPassword(e.target.value)}  // Update confirm password state
+            value={confirmPassword}  
+            onChange={(e) => setConfirmPassword(e.target.value)}  
             required
           />
 
