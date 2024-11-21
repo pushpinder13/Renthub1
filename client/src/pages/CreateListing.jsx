@@ -100,6 +100,7 @@ const CreateListing = () => {
   const handlePost = async (e) => {
     e.preventDefault();
 
+   
     try {
       /* Create a new FormData onject to handle file uploads */
       const listingForm = new FormData();
@@ -134,6 +135,7 @@ const CreateListing = () => {
       });
 
       if (response.ok) {
+        alert("Listing created successfully!");
         navigate("/");
       }
     } catch (err) {
